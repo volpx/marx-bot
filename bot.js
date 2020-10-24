@@ -30,17 +30,15 @@ bot.on(['message', 'video', 'photo'], (ctx) => {
 		let sinceLast=timeNow-lastTime;
 		let probOfThisMessage=1-Math.exp(-messageRate * sinceLast);
 		
+		let nms = marxify(msg);
+
 		// Will WE send it?
-		if(Math.random() < probOfThisMessage){
+		if (Math.random() < probOfThisMessage && nms.localeCompare(msg) != 0 ){
 			// Update the last time
 			lastTime=timeNow;
 
-			let nms = marxify(msg);
-		}
-
-		if (nms.localeCompare(msg) != 0)
-
 			ctx.reply(nms + '*');
+		}
 		//send(chat, nms+"*");
 
 	} catch (e) { console.log(e) }
